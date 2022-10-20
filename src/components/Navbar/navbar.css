@@ -1,0 +1,45 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navLogo {
+    color: var(--second-color);
+}
+
+.navContainer {
+    width: 100%;
+    background-color:var(--main-color);
+    filter: drop-shadow(5px 5px 10px #e5383b);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navBar {
+
+}
+
+.navUl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navUl li {
+    padding: 2rem;
+    list-style: none;
+}
+
+.navUl li a {
+    color: var(--second-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navUl li a:hover {
+    color: #e5383b;
+    transition: all 500ms ease;
+}
