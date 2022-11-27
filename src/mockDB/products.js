@@ -1,7 +1,7 @@
 export const products = [
   {
     id: 1,
-    name: "Black Phanter",
+    name: "Black Panther",
     category: "snares",
     stock: 10,
     description:

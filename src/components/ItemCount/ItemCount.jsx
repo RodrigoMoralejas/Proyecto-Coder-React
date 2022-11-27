@@ -1,34 +1,45 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import "./itemcount.css";
 
-const ItemCount = ({ stock, onAdd }) => {
-  const [count, setCount] = useState(0);
+const ItemCount = ({ initial, stock, onAdd }) => {
+  const [count, setCount] = useState(parseInt(initial));
 
-  const sumar = () => {
+  const add = () => {
     setCount(count + 1);
   };
 
-  const restar = () => {
+  const subtract = () => {
     setCount(count - 1);
   };
 
   const reset = () => {
-    setCount(0);
+    setCount(1);
   };
+
+  const addCart = () => {
+    onAdd(count);
+  };
+
+  useEffect(() => {
+    setCount(parseInt(initial));
+  }, [initial]);
 
   return (
     <div className="counterDiv">
       <div className="counterBtn">
-        <button disabled={count <= 1} onClick={restar}>
+        <button disabled={count <= 1} onClick={subtract}>
           -
         </button>
         <span>{count}</span>
-        <button disabled={count >= stock} onClick={sumar}>
+        <button disabled={count >= stock} onClick={add}>
           +
         </button>
       </div>
       <button onClick={reset}>Reset</button>
-      <button>Add to cart</button>
+      <button disabled={stock <= 0} onClick={() => addCart()}>
+        Add to cart
+      </button>
     </div>
   );
 };

@@ -37,9 +37,16 @@
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
+  padding: 0.4rem;
 }
 
 .navUl li a:hover {
   color: #e5383b;
   transition: all 500ms ease;
+}
+
+.active {
+  outline: 2px solid whitesmoke;
+  outline-offset: 4px;
+  border-radius: 8px;
 }

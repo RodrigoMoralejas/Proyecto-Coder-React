@@ -2,43 +2,47 @@ import React, { useState, useEffect } from "react";
 import ItemList from "./ItemList/ItemList";
 import "./itemlistcontainer.css";
 import { useParams } from "react-router-dom";
-import { products } from "../../mockDB/products";
-import ItemCount from "../ItemCount/ItemCount";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 
 const ItemListContainer = ({ greeting }) => {
-  const [items, setItems] = useState(products);
-
-  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
 
   const { category } = useParams();
 
   useEffect(() => {
-    const filterCategory = (productCategory) => {
-      setItems(products.filter((x) => x.category === productCategory));
-    };
+    const queryDb = getFirestore();
+
+    const queryCollection = collection(queryDb, "products");
 
     if (category) {
-      category === "snares" && filterCategory("snares");
-      category === "cymbals" && filterCategory("cymbals");
-      category === "pedals" && filterCategory("pedals");
+      const queryFilter = query(
+        queryCollection,
+        where("category", "==", category)
+      );
+      getDocs(queryFilter).then((res) =>
+        setItems(
+          res.docs.map((product) => ({ id: product.id, ...product.data() }))
+        )
+      );
     } else {
-      setItems(products);
+      getDocs(queryCollection).then((res) =>
+        setItems(
+          res.docs.map((product) => ({ id: product.id, ...product.data() }))
+        )
+      );
     }
   }, [category]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [category]);
-
-  const onAdd = () => {};
 
   return (
     <div className="itemListContainer">
       <h2>{greeting}</h2>
-      {loading ? <h2>Loading...</h2> : <ItemList productsDB={items} />}
-      <ItemCount stock={10} onAdd={onAdd} />
+      <ItemList productsDB={items} />
     </div>
   );
 };

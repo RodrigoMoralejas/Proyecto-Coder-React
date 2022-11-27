@@ -1,0 +1,32 @@
+.checkoutForm {
+  height: 0 auto;
+}
+
+.checkoutForm form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.checkOutFinished {
+  padding: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.checkOutFinished h3 {
+  font-size: 2rem;
+}
+
+.checkOutFinished p {
+  font-size: 1.5rem;
+}
+
+.checkOutFinished a {
+  text-decoration: none;
+}

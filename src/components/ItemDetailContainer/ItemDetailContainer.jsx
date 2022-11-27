@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import IteamDetail from "./ItemDetail/IteamDetail";
+import IteamDetail from "./ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
-import { products } from "../../mockDB/products";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import "./itemdetailcontainer.css";
 
 const ItemDetailContainer = () => {
   const { itemId } = useParams();
 
-  const [item, setItem] = useState();
+  const [item, setItem] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setItem(products.find((x) => x.id === parseInt(itemId)));
-  }, []);
+    const queryDb = getFirestore();
+    const queryDoc = doc(queryDb, "products", itemId);
+    getDoc(queryDoc).then((res) => setItem({ id: res.id, ...res.data() }));
+  }, [itemId]);
 
   useEffect(() => {
     setTimeout(() => {
